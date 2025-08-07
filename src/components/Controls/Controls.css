@@ -1,0 +1,48 @@
+.controlsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f8f8f8;
+}
+
+.todayButton {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.todayButton:hover {
+    background-color: #f0f0f0;
+}
+
+.viewModeButtons {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.viewButton {
+    padding: 8px 15px;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.viewButton:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+
+.viewButton.active {
+    background-color: #e0e0e0;
+}
+
+.viewButton:hover:not(.active) {
+    background-color: #f0f0f0;
+}
