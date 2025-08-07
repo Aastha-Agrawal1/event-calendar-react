@@ -8,7 +8,7 @@ const Day = ({ date, isCurrentMonth, events, isToday }) => {
       <div className={'dayNumber'}>{date.getDate()}</div>
       <div className={'eventsContainer'}>
         {events.map(event => (
-          <Event key={event.id} title={event.pageCategory} eventData={event}/>
+          <Event key={event.id} title={event.class_name} eventData={event}/>
         ))}
       </div>
     </div>

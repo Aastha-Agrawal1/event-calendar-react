@@ -12,26 +12,6 @@ const Controls = () => {
   return (
     <div className={"controlsContainer"}>
       <button className={'todayButton'} onClick={handleTodayClick}>Today</button>
-      <div className={'viewModeButtons'}>
-        <button
-          className={`${'viewButton'} ${viewMode === 'week' ? 'active' : ''}`}
-          onClick={() => setViewMode('week')}
-        >
-          Week
-        </button>
-        <button
-          className={`${'viewButton'} ${viewMode === 'month' ? 'active' : ''}`}
-          onClick={() => setViewMode('month')}
-        >
-          Month
-        </button>
-        <button
-          className={`${'viewButton'} ${viewMode === 'grid' ? 'active' : ''}`}
-          onClick={() => setViewMode('grid')}
-        >
-          Grid
-        </button>
-      </div>
     </div>
   );
 };

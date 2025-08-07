@@ -8,12 +8,8 @@ import {
   TextField,
   Button,
   Grid,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Switch,
   Box,
-  Paper,
+  MenuItem,
 } from '@mui/material';
 
 import {
@@ -26,7 +22,7 @@ import {
 } from '@mui/icons-material';
 
 import { useForm, Controller } from 'react-hook-form';
-
+import { Snackbar } from '@mui/material';
 export default function AddDialog({ open, onClose }) {
   const {
     control,
@@ -47,11 +43,14 @@ export default function AddDialog({ open, onClose }) {
   });
 
   const [preview, setPreview] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const watchFile = watch("file");
 
   const onSubmit = async (data) => {
     console.log("Form Submitted:", data);
+    setShowSuccess(true); // show snackbar
+
     const file = data.file?.[0];
     if (file) {
       console.log("Uploaded file:", file.name);
@@ -63,176 +62,169 @@ export default function AddDialog({ open, onClose }) {
     setPreview(null);
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setValue("file", e.target.files);
-      setPreview(URL.createObjectURL(file));
-    }
-  };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="1120" >
-      <DialogTitle sx={{ position: 'relative' }}>
-        Share to social media
-        <IconButton
-          onClick={onClose}
-          sx={{ position: 'absolute', right: 8, top: 8 }}
-        >
-          <Close />
-        </IconButton>
-      </DialogTitle>
+    <>
+      <Snackbar
+        open={showSuccess}
+        autoHideDuration={3000}
+        onClose={() => setShowSuccess(false)}
+        message="Meeting scheduled successfully!"
+      />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <DialogContent>
-          <Grid container>
-            {/* Left Pane */}
-            <Grid item xs={5} sx={{ p: 3, borderRight: '1px solid #ccc' }}>
-              <Typography variant="subtitle1" gutterBottom>
-                Plan, schedule, and publish content to multiple social platforms.
-              </Typography>
+      <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <DialogTitle sx={{ bgcolor: '#f5f7fa', fontWeight: 600, fontSize: 20, px: 4 }}>
+            Add New Student Meeting
+            <IconButton onClick={onClose} sx={{ position: 'absolute', right: 16, top: 16 }}>
+              <Close />
+            </IconButton>
+          </DialogTitle>
 
-              <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
-                <Facebook color="primary" />
-                <Instagram sx={{ color: '#C13584' }} />
-                <Twitter color="primary" />
-                <LinkedIn color="primary" />
-                <MusicNote />
-              </Box>
+          <DialogContent sx={{ background: '#fdfdfd', px: 4, py: 3 }}>
+            <Typography variant="subtitle1" gutterBottom fontWeight={600}>
+              Meeting Details
+            </Typography>
 
-              <Controller
-                name="caption"
-                control={control}
-                rules={{ required: 'Caption is required' }}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Add a caption"
-                    multiline
-                    fullWidth
-                    rows={2}
-                    variant="outlined"
-                    sx={{ mb: 2 }}
-                  />
-                )}
-              />
-
-              <Button variant="outlined" fullWidth sx={{ mb: 2 }}>
-                Generate
-              </Button>
-
-              <Controller
-                name="mode"
-                control={control}
-                render={({ field }) => (
-                  <RadioGroup row {...field} sx={{ mb: 2 }}>
-                    <FormControlLabel value="schedule" control={<Radio />} label="Schedule" />
-                    <FormControlLabel value="now" control={<Radio />} label="Publish now" />
-                  </RadioGroup>
-                )}
-              />
-
-              <Controller
-                name="isDraft"
-                control={control}
-                render={({ field }) => (
-                  <FormControlLabel
-                    control={<Switch {...field} checked={field.value} />}
-                    label="Set as draft"
-                  />
-                )}
-              />
-
-              <Controller
-                name="postTime"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Date & Time"
-                    type="datetime-local"
-                    InputLabelProps={{ shrink: true }}
-                    fullWidth
-                    sx={{ mt: 2 }}
-                  />
-                )}
-              />
-            </Grid>
-
-            {/* Right Pane */}
-            <Grid
-              item
-              xs={7}
-              sx={{
-                p: 3,
-                backgroundColor: '#fafafa',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Paper
-                variant="outlined"
-                sx={{
-                  border: '2px dashed #bbb',
-                  p: 4,
-                  textAlign: 'center',
-                  width: '100%',
-                  cursor: 'pointer',
-                  position: 'relative',
-                }}
-              >
-                {preview ? (
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    style={{ maxHeight: 200, maxWidth: '100%', marginBottom: 16 }}
-                  />
-                ) : (
-                  <>
-                    <Typography variant="h6" gutterBottom>
-                      Drag and drop here, or{' '}
-                      <Box component="span" sx={{ color: '#6366f1', fontWeight: 500 }}>
-                        browse
-                      </Box>
-                    </Typography>
-                    <Typography variant="body2">
-                      Add the images/videos you want to include in your post here.
-                    </Typography>
-                  </>
-                )}
-
-                <input
-                  type="file"
-                  accept="image/*,video/*"
-                  style={{
-                    opacity: 0,
-                    position: 'absolute',
-                    height: '100%',
-                    width: '100%',
-                    top: 0,
-                    left: 0,
-                    cursor: 'pointer',
-                  }}
-                  {...register("file", { required: "File is required" })}
-                  onChange={handleFileChange}
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="student_name"
+                  control={control}
+                  rules={{ required: 'Student name is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Student Name"
+                      variant="outlined"
+                      fullWidth
+                      sx={{ borderRadius: 2 }}
+                    />
+                  )}
                 />
-              </Paper>
-            </Grid>
-          </Grid>
-        </DialogContent>
+              </Grid>
 
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 3, py: 2, gap: 2 }}>
-          <Button disabled>Preview</Button>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="class_name"
+                  control={control}
+                  rules={{ required: 'Class name is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Class"
+                      variant="outlined"
+                      fullWidth
+                      sx={{ borderRadius: 2 }}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="age"
+                  control={control}
+                  rules={{ required: 'Age is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Age"
+                      type="number"
+                      variant="outlined"
+                      fullWidth
+                      sx={{ borderRadius: 2 }}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="mettingLink"
+                  control={control}
+                  rules={{ required: 'Meeting link is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Meeting Link"
+                      variant="outlined"
+                      fullWidth
+                      sx={{ borderRadius: 2 }}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="Attendance"
+                  control={control}
+                  rules={{ required: 'Attendance is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      select
+                      label="Attendance"
+                      variant="outlined"
+                      fullWidth
+                      sx={{ borderRadius: 2 }}
+                    >
+                      <MenuItem value="On Time">On Time</MenuItem>
+                      <MenuItem value="Late">Late</MenuItem>
+                      <MenuItem value="Absent">Absent</MenuItem>
+                    </TextField>
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="scheduledDate"
+                  control={control}
+                  rules={{ required: 'Date is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Scheduled Date"
+                      type="date"
+                      InputLabelProps={{ shrink: true }}
+                      variant="outlined"
+                      fullWidth
+                      sx={{ borderRadius: 2 }}
+                    />
+                  )}
+                />
+              </Grid>
+            </Grid>
+          </DialogContent>
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: 2,
+              px: 4,
+              py: 3,
+              bgcolor: '#f5f7fa'
+            }}
           >
-            {isSubmitting ? 'Scheduling...' : 'Schedule'}
-          </Button>
-        </Box>
-      </form>
-    </Dialog>
+            <Button variant="outlined" color="secondary" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={isSubmitting}
+              sx={{ borderRadius: 2 }}
+            >
+              {isSubmitting ? 'Saving...' : 'Save Meeting'}
+            </Button>
+          </Box>
+        </form>
+      </Dialog>
+    </>
+
+
   );
 }

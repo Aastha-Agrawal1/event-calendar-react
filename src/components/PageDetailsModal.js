@@ -11,8 +11,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const PageDetailsModal = ({data, open, onClose }) => {
-  console.log(data,"####ADDDAF")
+const PageDetailsModal = ({ data, open, onClose }) => {
   return (
     <Dialog
       open={open}
@@ -27,7 +26,7 @@ const PageDetailsModal = ({data, open, onClose }) => {
     >
       <DialogTitle sx={{ p: 0 }}>
         <Grid container justifyContent="space-between" alignItems="center">
-          <Typography variant="h6">Page Analytics</Typography>
+          <Typography variant="h6">Student Details</Typography>
           <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
@@ -38,187 +37,40 @@ const PageDetailsModal = ({data, open, onClose }) => {
 
       <DialogContent>
         <Grid container spacing={2}>
-            <Grid item xs={6} >
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 2,
-                  borderRadius: 2,
-                  bgcolor: 'grey.100',
-                  textAlign: 'center'
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  scheduledDate
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  fontWeight="bold"
-                  color="text.primary"
-                >
-                  {data?.scheduledDate}
-                </Typography>
+          <Grid item xs={6}>
+            <Paper sx={{ p: 2, borderRadius: 2, bgcolor: 'grey.100', textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary">Name</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">{data?.student_name}</Typography>
               </Paper>
             </Grid>
 
-                        <Grid item xs={6} >
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 2,
-                  borderRadius: 2,
-                  bgcolor: 'grey.100',
-                  textAlign: 'center'
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  Categary
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  fontWeight="bold"
-                  color="text.primary"
-                >
-                  {data?.pageCategory}
-                </Typography>
+          <Grid item xs={6}>
+            <Paper sx={{ p: 2, borderRadius: 2, bgcolor: 'grey.100', textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary">Age</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">{data?.age}</Typography>
               </Paper>
             </Grid>
 
-                                    <Grid item xs={6} >
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 2,
-                  borderRadius: 2,
-                  bgcolor: 'grey.100',
-                  textAlign: 'center'
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  Likes
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  fontWeight="bold"
-                  color="text.primary"
-                >
-                  {data?.Likes}
-                </Typography>
+          <Grid item xs={6}>
+            <Paper sx={{ p: 2, borderRadius: 2, bgcolor: 'grey.100', textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary">Meetings</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">{data?.meetings}</Typography>
               </Paper>
             </Grid>
 
-                                    <Grid item xs={6} >
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 2,
-                  borderRadius: 2,
-                  bgcolor: 'grey.100',
-                  textAlign: 'center'
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  Reach
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  fontWeight="bold"
-                  color="text.primary"
-                >
-                  {data?.Reach}
-                </Typography>
-              </Paper>
-            </Grid>
-
-            <Grid item xs={6} >
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 2,
-                  borderRadius: 2,
-                  bgcolor: 'grey.100',
-                  textAlign: 'center'
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  Shares
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  fontWeight="bold"
-                  color="text.primary"
-                >
-                  {data?.Shares}
-                </Typography>
-              </Paper>
-            </Grid>
-
-                                    <Grid item xs={6} >
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 2,
-                  borderRadius: 2,
-                  bgcolor: 'grey.100',
-                  textAlign: 'center'
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  Views
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  fontWeight="bold"
-                  color="text.primary"
-                >
-                  {data?.Views}
-                </Typography>
-              </Paper>
-            </Grid>
-
-          <Grid item xs={6} >
-            <Paper
-              elevation={1}
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                bgcolor: 'grey.100',
-                textAlign: 'center'
-              }}
-            >
-              <Typography
-                variant="body2"
-                color="text.secondary"
-              >
-                Follower
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                fontWeight="bold"
-                color="text.primary"
-              >
-                {data?.followerCount}
-              </Typography>
+             <Grid item xs={12}>
+            <Paper sx={{ p: 2, borderRadius: 2, bgcolor: 'grey.100', textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary">Instructor</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">{data?.instructor_name}</Typography>
             </Paper>
           </Grid>
+
+          <Grid item xs={6}>
+            <Paper sx={{ p: 2, borderRadius: 2, bgcolor: 'grey.100', textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary">Class</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">{data?.class_name}</Typography>
+              </Paper>
+            </Grid>
         </Grid>
       </DialogContent>
     </Dialog>

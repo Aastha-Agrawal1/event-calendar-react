@@ -52,7 +52,7 @@ const Calendar = () => {
 
   const getEventsForDay = (date) => {
     const dateString = date.toISOString().slice(0, 10);
-    return events.filter((event) => event.scheduledDate === dateString);
+    return events.filter((event) => event.date === dateString);
   };
 
   if (viewMode === "week" || viewMode === "grid") {
